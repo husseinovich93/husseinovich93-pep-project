@@ -1,6 +1,5 @@
 package DAO;
-
-import java.beans.Statement;
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +19,7 @@ public class AccountDAO {
         try {
             //SQL 
             String sql = "INSERT INTO account (username,password) VALUES(?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             //Writting PrepareStatements : 
             preparedStatement.setString(1, account.getUsername());
@@ -28,7 +27,9 @@ public class AccountDAO {
             
             preparedStatement.executeUpdate();
             ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
+            System.out.println("Hello From 31");
             if(pkeyResultSet.next()){
+                
                 int generate_account_id = (int) pkeyResultSet.getLong(1);
                 return new Account(generate_account_id, account.getUsername(), account.getPassword());
             }

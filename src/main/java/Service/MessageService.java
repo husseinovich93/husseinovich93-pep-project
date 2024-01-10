@@ -28,13 +28,16 @@ public class MessageService {
         return messageDAO.getMessageById(mesgID);
     }
 
-    public Message delMessageByID(int id){
-        return messageDAO.deleteMessageById(id);
+    public void delMessageByID(int id){
+         messageDAO.deleteMessageById(id);
     }
 
     public Message updateMessageByID(int message_id, Message message){
         if(messageDAO.getMessageById(message_id) != null){
+            System.out.println("xHere:  "+messageDAO.getMessageById(message_id));
             messageDAO.updateMessageByID(message_id, message);
+            System.out.println("yHere:  "+messageDAO.getMessageById(message_id));
+            System.out.println("zHere:  "+messageDAO.getMessageById(message_id));
             return messageDAO.getMessageById(message_id);
         }
         else{
@@ -46,5 +49,5 @@ public class MessageService {
     public List<Message>getMessagesByUserID(int UserID){
         return messageDAO.getAllMessagesByUserID(UserID);
     }
-    
+
 }
